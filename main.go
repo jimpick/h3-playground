@@ -22,10 +22,32 @@ func main() {
 	// Output:
 	// 8928308280fffff
 
+	// hex4 := "81673ffffffffff"
+	hex5 := "1673"
+	buf, _ := hex.DecodeString(hex5)
+	fmt.Printf("buf: %v\n", buf)
+	b32 := base32.StdEncoding.EncodeToString(buf)
+	fmt.Printf("b32: %v\n", b32)
+
 	// uxirkffr.test.hex.camp
 
 	// str := "ONXW2ZJAMRQXIYJAO5UXI2BAAAQGC3TEEDX3XPY="
-	str := strings.ToUpper("uxirkffr")
+	// str := strings.ToUpper("uxirkffr")
+	str := strings.ToUpper("czzq")
+	// add padding characters
+	padding := ""
+	switch len(str) % 8 {
+	case 2:
+		padding = "======"
+	case 4:
+		padding = "===="
+	case 5:
+		padding = "==="
+	case 7:
+		padding = "=="
+	}
+	str = str + padding
+
 	data, err := base32.StdEncoding.DecodeString(str)
 	if err != nil {
 		log.Fatal(err)
